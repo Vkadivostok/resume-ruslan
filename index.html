@@ -557,92 +557,16 @@
     </div>
 </div>
 
-<!-- Navigation -->
-<nav class="fixed top-0 left-0 right-0 z-50 no-print" style="backdrop-filter: blur(12px); background: rgba(9,9,11,0.85); border-bottom: 1px solid rgba(255,255,255,0.06);">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
-                <span class="text-white text-xs font-bold">РК</span>
-            </div>
-            <span class="text-sm font-semibold text-zinc-100 hidden sm:block">Кудряков Руслан</span>
-        </div>
-        <div class="hidden md:flex items-center gap-8">
-            <a class="nav-link" onclick="scrollToSection('profile')">Профиль</a>
-            <a class="nav-link" onclick="scrollToSection('expertise')">Экспертиза</a>
-            <a class="nav-link" onclick="scrollToSection('cases')">Кейсы</a>
-            <a class="nav-link" onclick="scrollToSection('experience')">Опыт</a>
-            <a class="nav-link" onclick="scrollToSection('education')">Образование</a>
-            <a class="nav-link" onclick="scrollToSection('skills')">Навыки</a>
-        </div>
-        <button onclick="handlePrint()" class="flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-100 text-zinc-900 text-xs font-semibold hover:scale-105 active:scale-95 transition-transform">
-            <span class="iconify" data-icon="lucide:printer" data-width="14"></span>
-            PDF
-        </button>
-    </div>
-</nav>
-
-<!-- Mobile menu button -->
-<button id="mobileMenuBtn" class="fixed bottom-6 right-6 z-50 md:hidden w-14 h-14 rounded-full bg-orange-500 text-white flex items-center justify-center shadow-lg no-print" style="animation: pulse-orange 2s infinite;" onclick="toggleMobileMenu()">
-    <span class="iconify" data-icon="lucide:menu" data-width="22"></span>
-</button>
-
-<!-- Mobile menu -->
-<div id="mobileMenu" class="fixed inset-0 z-40 hidden" style="backdrop-filter: blur(40px); background: rgba(9,9,11,0.95);">
-    <div class="flex flex-col items-center justify-center h-full gap-6">
-        <a class="text-2xl font-medium text-zinc-100 hover:text-orange-400 transition-colors cursor-pointer" onclick="scrollToSection('profile'); toggleMobileMenu();">Профиль</a>
-        <a class="text-2xl font-medium text-zinc-100 hover:text-orange-400 transition-colors cursor-pointer" onclick="scrollToSection('expertise'); toggleMobileMenu();">Экспертиза</a>
-        <a class="text-2xl font-medium text-zinc-100 hover:text-orange-400 transition-colors cursor-pointer" onclick="scrollToSection('cases'); toggleMobileMenu();">Кейсы</a>
-        <a class="text-2xl font-medium text-zinc-100 hover:text-orange-400 transition-colors cursor-pointer" onclick="scrollToSection('experience'); toggleMobileMenu();">Опыт</a>
-        <a class="text-2xl font-medium text-zinc-100 hover:text-orange-400 transition-colors cursor-pointer" onclick="scrollToSection('education'); toggleMobileMenu();">Образование</a>
-        <a class="text-2xl font-medium text-zinc-100 hover:text-orange-400 transition-colors cursor-pointer" onclick="scrollToSection('skills'); toggleMobileMenu();">Навыки</a>
-    </div>
-</div>
-
 <!-- Hero Section -->
-<section class="hero-bg min-h-screen flex items-center pt-16">
-    <div class="max-w-6xl mx-auto px-6 py-20 w-full">
-        <div class="hero-image-frame no-print">
+<section class="hero-bg min-h-[45vh] flex items-center pt-6">
+    <div class="max-w-6xl mx-auto px-6 py-14 w-full">
+        <div class="flex flex-col items-center text-center">
+            <div class="hero-image-frame no-print">
             <img src="./assets/ruslan-photo.jpg" alt="Фото Руслана">
         </div>
-        <div class="flex justify-center">
-            <div class="text-center md:text-left max-w-3xl" style="animation: fadeInRight 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s forwards; opacity: 0;">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 mb-6">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <span class="text-xs font-medium text-orange-400">Открыт к предложениям</span>
-                </div>
-                <h1 class="text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1] mb-4">
-                    Кудряков<br>
-                    <span style="background: linear-gradient(to bottom, #f4f4f5, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Руслан Абдуллаевич</span>
-                </h1>
-                <p class="text-lg md:text-xl text-orange-400 font-medium mb-6">Главный юрист / Главный юрисконсульт</p>
-                <p class="text-sm text-zinc-400 mb-8 max-w-lg leading-relaxed">
-                    Букмекерский бизнес · Судебно-претензионная и регуляторная работа · 20+ лет юридического стажа
-                </p>
-                <!-- Contact chips -->
-                <div class="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
-                    <div class="contact-chip" onclick="copyToClipboard('+79257730349', 'Телефон скопирован')">
-                        <span class="iconify text-orange-400" data-icon="lucide:phone" data-width="14"></span>
-                        +7 (925) 773-03-49
-                    </div>
-                    <div class="contact-chip" onclick="copyToClipboard('ruslan-ul@yandex.ru', 'Email скопирован')">
-                        <span class="iconify text-orange-400" data-icon="lucide:mail" data-width="14"></span>
-                        ruslan-ul@yandex.ru
-                    </div>
-                    <div class="contact-chip">
-                        <span class="iconify text-orange-400" data-icon="lucide:map-pin" data-width="14"></span>
-                        Москва, м. Текстильщики
-                    </div>
-                    <div class="contact-chip">
-                        <span class="iconify text-orange-400" data-icon="lucide:banknote" data-width="14"></span>
-                        от 200 000 ₽ на руки
-                    </div>
-                </div>
-                <div class="flex flex-wrap justify-center md:justify-start gap-3 text-xs text-zinc-500">
-                    <span class="flex items-center gap-1.5"><span class="iconify" data-icon="lucide:flag" data-width="12"></span> Гражданство: РФ</span>
-                    <span class="flex items-center gap-1.5"><span class="iconify" data-icon="lucide:plane" data-width="12"></span> Готов к командировкам</span>
-                    <span class="flex items-center gap-1.5"><span class="iconify" data-icon="lucide:home" data-width="12"></span> Не готов к переезду</span>
-                </div>
-            </div>
+            <h1 class="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.15] mt-4">
+                Кудряков Руслан Абдуллаевич
+            </h1>
         </div>
     </div>
 </section>
