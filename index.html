@@ -106,15 +106,17 @@
         }
         .hero-image-frame {
             position: relative;
-            border-radius: 18px;
+            width: 132px;
+            height: 132px;
+            border-radius: 14px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.12);
             box-shadow: 0 28px 54px -18px rgba(0,0,0,0.65);
-            margin-bottom: 34px;
+            margin: 0 auto 24px auto;
         }
         .hero-image-frame img {
             width: 100%;
-            height: clamp(180px, 32vw, 340px);
+            height: 100%;
             object-fit: cover;
             object-position: center;
             display: block;
@@ -462,11 +464,10 @@
                 line-height: 1.15 !important;
             }
             .hero-image-frame {
-                margin-bottom: 22px;
-                border-radius: 14px;
-            }
-            .hero-image-frame img {
-                height: 170px;
+                width: 108px;
+                height: 108px;
+                border-radius: 12px;
+                margin-bottom: 18px;
             }
             .glass-card {
                 padding: 20px !important;
