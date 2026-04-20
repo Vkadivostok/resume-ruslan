@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кудряков Руслан — Главный юрисконсульт</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 106.25%; }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: #09090b;
+            color: #f4f4f5;
+            overflow-x: hidden;
+            letter-spacing: 0.01em;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #f97316; border-radius: 3px; }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes pulse-orange {
+            0% { box-shadow: 0 0 0 0 rgba(249,115,22,0.5); }
+            70% { box-shadow: 0 0 0 12px rgba(249,115,22,0); }
+            100% { box-shadow: 0 0 0 0 rgba(249,115,22,0); }
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes borderGlow {
+            0%, 100% { border-color: rgba(249,115,22,0.2); }
+            50% { border-color: rgba(249,115,22,0.6); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes navSlideDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes sheen {
+            from { transform: translateX(-120%); }
+            to { transform: translateX(140%); }
+        }
+        @keyframes statGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(28px) scale(0.985);
+            filter: blur(4px);
+            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+        .animate-on-scroll.from-left {
+            transform: translateX(-30px);
+        }
+        .animate-on-scroll.from-left.visible {
+            transform: translateX(0);
+        }
+        .animate-on-scroll.from-right {
+            transform: translateX(30px);
+        }
+        .animate-on-scroll.from-right.visible {
+            transform: translateX(0);
+        }
+
+        /* Hero background */
+        .hero-bg {
+            background: radial-gradient(ellipse at 50% 0%, rgba(249,115,22,0.08) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 50%, rgba(249,115,22,0.04) 0%, transparent 50%),
+                        #09090b;
+        }
+
+        /* Glass card */
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(24,24,27,0.5);
+            border: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.08) 50%, transparent 70%);
+            transform: translateX(-120%);
+            pointer-events: none;
+        }
+        .glass-card:hover {
+            border-color: rgba(249,115,22,0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 28px 56px -14px rgba(0,0,0,0.52), 0 0 34px rgba(249,115,22,0.07);
+        }
+        .glass-card:hover::after {
+            animation: sheen 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Timeline */
+        .timeline-line {
+            position: absolute;
+            left: 23px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(249,115,22,0.6), rgba(249,115,22,0.1));
+        }
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #f97316;
+            border: 3px solid #09090b;
+            position: absolute;
+            left: 18px;
+            top: 6px;
+            z-index: 2;
+            animation: pulse-orange 2s infinite;
+        }
+        .timeline-dot.inactive {
+            background: #3f3f46;
+            animation: none;
+        }
+
+        /* Skill bar */
+        .skill-bar {
+            height: 4px;
+            background: #27272a;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(to right, #f97316, #fb923c);
+            border-radius: 2px;
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Case card */
+        .case-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .case-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #f97316, #ea580c);
+            border-radius: 2px;
+        }
+
+        /* Contact chip */
+        .contact-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            background: rgba(24,24,27,0.6);
+            border: 1px solid rgba(255,255,255,0.08);
+            font-size: 14px;
+            font-weight: 500;
+            color: #a1a1aa;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .contact-chip:hover {
+            border-color: rgba(249,115,22,0.3);
+            color: #f4f4f5;
+            background: rgba(24,24,27,0.8);
+            transform: translateY(-2px);
+        }
+
+        /* Tab */
+        .tab-btn {
+            padding: 10px 24px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #a1a1aa;
+            background: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .tab-btn:hover {
+            color: #f4f4f5;
+            border-color: rgba(255,255,255,0.14);
+        }
+        .tab-btn.active {
+            color: #09090b;
+            background: #f4f4f5;
+            border-color: #f4f4f5;
+            box-shadow: 0 8px 18px -8px rgba(255,255,255,0.45);
+        }
+
+        /* Nav */
+        .nav-link {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #f97316, transparent);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.35s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #f97316;
+            transform: translateY(-1px);
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+
+        /* Expandable */
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .expandable-content.open {
+            max-height: 2000px;
+        }
+        .expand-toggle {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .expand-toggle:hover {
+            color: #f97316;
+        }
+        .expand-icon {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* Stats counter */
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #f4f4f5, #d4d4d8, #ffffff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            animation: statGlow 6s ease-in-out infinite;
+        }
+
+        /* Section divider */
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #f97316, #ea580c);
+            border-radius: 2px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 14px 24px;
+            background: rgba(24,24,27,0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(249,115,22,0.3);
+            border-radius: 12px;
+            color: #f4f4f5;
+            font-size: 14px;
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Page lock */
+        body.auth-locked {
+            overflow: hidden !important;
+        }
+        body.auth-locked > *:not(#siteLock):not(script) {
+            pointer-events: none;
+            user-select: none;
+            filter: blur(3px);
+        }
+        .site-lock {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(249,115,22,0.09) 0%, transparent 60%),
+                        rgba(9,9,11,0.96);
+            backdrop-filter: blur(8px);
+        }
+        .site-lock.hidden {
+            display: none !important;
+        }
+        .site-lock-card {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(24,24,27,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 24px 50px -16px rgba(0,0,0,0.7);
+        }
+        .site-lock-input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(9,9,11,0.9);
+            color: #f4f4f5;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .site-lock-input:focus {
+            border-color: rgba(249,115,22,0.65);
+            box-shadow: 0 0 0 3px rgba(249,115,22,0.2);
+        }
+        .site-lock-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            background: #f97316;
+            color: #09090b;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .site-lock-btn:hover {
+            background: #fb923c;
+            transform: translateY(-1px);
+        }
+        .site-lock-error {
+            min-height: 20px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #fb7185;
+        }
+
+        /* Readability tweaks for dark theme */
+        .text-zinc-400 { color: #e4e4e7 !important; }
+        .text-zinc-500 { color: #d4d4d8 !important; }
+        .text-zinc-600 { color: #bdbdc7 !important; }
+        .contact-chip,
+        .tab-btn,
+        .nav-link {
+            color: #e4e4e7;
+        }
+        nav.no-print {
+            animation: navSlideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            html {
+                font-size: 100%;
+            }
+            body {
+                font-size: 16px;
+            }
+            nav .max-w-6xl,
+            section .max-w-6xl,
+            footer .max-w-6xl {
+                padding-left: 16px !important;
+                padding-right: 16px !important;
+            }
+            section.py-24 {
+                padding-top: 64px !important;
+                padding-bottom: 64px !important;
+            }
+            section.py-16 {
+                padding-top: 48px !important;
+                padding-bottom: 48px !important;
+            }
+            h1.text-4xl {
+                font-size: 2.15rem !important;
+                line-height: 1.15 !important;
+            }
+            .glass-card {
+                padding: 20px !important;
+            }
+            .tab-btn {
+                font-size: 13px;
+                padding: 9px 18px;
+            }
+            .contact-chip {
+                font-size: 13px;
+            }
+            #mobileMenuBtn {
+                width: 52px;
+                height: 52px;
+                bottom: 16px;
+                right: 16px;
+            }
+            .toast {
+                right: 12px;
+                left: 12px;
+                bottom: 14px;
+                width: auto;
+                padding: 12px 14px;
+                font-size: 13px;
+            }
+            .timeline-line {
+                left: 15px;
+            }
+            .timeline-dot {
+                left: 10px;
+            }
+            #experience .pl-16 {
+                padding-left: 40px !important;
+            }
+            #experience .pb-16 {
+                padding-bottom: 44px !important;
+            }
+            button[onclick="handlePrint()"] {
+                display: none !important;
+            }
+        }
+
+        /* Print */
+        @media print {
+            body { background: #fff; color: #000; }
+            .no-print { display: none !important; }
+            .glass-card { background: #f9f9f9; border: 1px solid #ddd; }
+            .text-zinc-400,
+            .text-zinc-500,
+            .text-zinc-600,
+            .contact-chip,
+            .tab-btn,
+            .nav-link { color: #000 !important; }
+            .animate-on-scroll { opacity: 1 !important; transform: none !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+            .animate-on-scroll {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="auth-locked">
+
+<!-- Password lock -->
+<div id="siteLock" class="site-lock">
+    <div class="site-lock-card">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-orange-500/15 border border-orange-500/30 flex items-center justify-center">
+                <span class="iconify text-orange-400" data-icon="lucide:shield-check" data-width="20"></span>
+            </div>
+            <div>
+                <p class="text-sm text-zinc-100 font-semibold">Вход на страницу</p>
+                <p class="text-xs text-zinc-400">Введите пароль для доступа</p>
+            </div>
+        </div>
+        <input id="sitePasswordInput" class="site-lock-input" type="password" inputmode="numeric" placeholder="Пароль" autocomplete="off">
+        <button id="sitePasswordBtn" class="site-lock-btn" type="button">Войти</button>
+        <p id="siteLockError" class="site-lock-error"></p>
+    </div>
+</div>
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-50 no-print" style="backdrop-filter: blur(12px); background: rgba(9,9,11,0.85); border-bottom: 1px solid rgba(255,255,255,0.06);">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+                <span class="text-white text-xs font-bold">РК</span>
+            </div>
+            <span class="text-sm font-semibold text-zinc-100 hidden sm:block">Кудряков Руслан</span>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <a class="nav-link" onclick="scrollToSection('profile')">Профиль</a>
+            <a class="nav-link" onclick="scrollToSection('expertise')">Экспертиза</a>
+            <a class="nav-link" onclick="scrollToSection('cases')">Кейсы</a>
+            <a class="nav-link" onclick="scrollToSection('experience')">Опыт</a>
+            <a class="nav-link" onclick="scrollToSection('education')">Образование</a>
+            <a class="nav-link" onclick="scrollToSection('skills')">Навыки</a>
+        </div>
+        <button onclick="handlePrint()" class="flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-100 text-zinc-900 text-xs font-semibold hover:scale-105 active:scale-95 transition-transform">
+            <span class="iconify" data-icon="lucide:printer" data-width="14"></span>
+            PDF
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile menu button -->
+<button id="mobileMenuBtn" class="fixed bottom-6 right-6 z-50 md:hidden w-14 h-14 rounded-full bg-orange-500 text-white flex items-center justify-center shadow-lg no-print" style="animation: pulse-orange 2s infinite;" onclick="toggleMobileMenu()">
+    <span class="iconify" data-icon="lucide:menu" data-width="22"></span>
+</button>
+
+<!-- Mobile menu -->
+<div id="mobileMenu" class="fixed inset-0 z-40 hidden" style="backdrop-filter: blur(40px); background: rgba(9,9,11,0.95);">
+    <div class="flex flex-col items-center justify-center h-full gap-6">
+        <a class="text-2xl font-medium text-zinc-100 hover:text-orange-400 transition-colors cursor-pointer" onclick="scrollToSection('profile'); toggleMobileMenu();">Профиль</a>
+        <a class="text-2xl font-medium text-zinc-100 hover:text-orange-400 transition-colors cursor-pointer" onclick="scrollToSection('expertise'); toggleMobileMenu();">Экспертиза</a>
+        <a class="text-2xl font-medium text-zinc-100 hover:text-orange-400 transition-colors cursor-pointer" onclick="scrollToSection('cases'); toggleMobileMenu();">Кейсы</a>
+        <a class="text-2xl font-medium text-zinc-100 hover:text-orange-400 transition-colors cursor-pointer" onclick="scrollToSection('experience'); toggleMobileMenu();">Опыт</a>
+        <a class="text-2xl font-medium text-zinc-100 hover:text-orange-400 transition-colors cursor-pointer" onclick="scrollToSection('education'); toggleMobileMenu();">Образование</a>
+        <a class="text-2xl font-medium text-zinc-100 hover:text-orange-400 transition-colors cursor-pointer" onclick="scrollToSection('skills'); toggleMobileMenu();">Навыки</a>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section class="hero-bg min-h-screen flex items-center pt-16">
+    <div class="max-w-6xl mx-auto px-6 py-20 w-full">
+        <div class="flex justify-center">
+            <div class="text-center md:text-left max-w-3xl" style="animation: fadeInRight 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s forwards; opacity: 0;">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span class="text-xs font-medium text-orange-400">Открыт к предложениям</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1] mb-4">
+                    Кудряков<br>
+                    <span style="background: linear-gradient(to bottom, #f4f4f5, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Руслан Абдуллаевич</span>
+                </h1>
+                <p class="text-lg md:text-xl text-orange-400 font-medium mb-6">Главный юрист / Главный юрисконсульт</p>
+                <p class="text-sm text-zinc-400 mb-8 max-w-lg leading-relaxed">
+                    Букмекерский бизнес · Судебно-претензионная и регуляторная работа · 20+ лет юридического стажа
+                </p>
+                <!-- Contact chips -->
+                <div class="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
+                    <div class="contact-chip" onclick="copyToClipboard('+79257730349', 'Телефон скопирован')">
+                        <span class="iconify text-orange-400" data-icon="lucide:phone" data-width="14"></span>
+                        +7 (925) 773-03-49
+                    </div>
+                    <div class="contact-chip" onclick="copyToClipboard('ruslan-ul@yandex.ru', 'Email скопирован')">
+                        <span class="iconify text-orange-400" data-icon="lucide:mail" data-width="14"></span>
+                        ruslan-ul@yandex.ru
+                    </div>
+                    <div class="contact-chip">
+                        <span class="iconify text-orange-400" data-icon="lucide:map-pin" data-width="14"></span>
+                        Москва, м. Текстильщики
+                    </div>
+                    <div class="contact-chip">
+                        <span class="iconify text-orange-400" data-icon="lucide:banknote" data-width="14"></span>
+                        от 200 000 ₽ на руки
+                    </div>
+                </div>
+                <div class="flex flex-wrap justify-center md:justify-start gap-3 text-xs text-zinc-500">
+                    <span class="flex items-center gap-1.5"><span class="iconify" data-icon="lucide:flag" data-width="12"></span> Гражданство: РФ</span>
+                    <span class="flex items-center gap-1.5"><span class="iconify" data-icon="lucide:plane" data-width="12"></span> Готов к командировкам</span>
+                    <span class="flex items-center gap-1.5"><span class="iconify" data-icon="lucide:home" data-width="12"></span> Не готов к переезду</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-16 border-y border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center animate-on-scroll">
+                <div class="stat-number" data-target="20">0</div>
+                <div class="text-xs text-zinc-500 mt-2 uppercase tracking-wider">лет стажа</div>
+            </div>
+            <div class="text-center animate-on-scroll" style="transition-delay: 0.1s;">
+                <div class="stat-number" data-target="13">0</div>
+                <div class="text-xs text-zinc-500 mt-2 uppercase tracking-wider">лет в букмекерстве</div>
+            </div>
+            <div class="text-center animate-on-scroll" style="transition-delay: 0.2s;">
+                <div class="stat-number" data-target="2">0</div>
+                <div class="text-xs text-zinc-500 mt-2 uppercase tracking-wider">федеральных БК</div>
+            </div>
+            <div class="text-center animate-on-scroll" style="transition-delay: 0.3s;">
+                <div class="stat-number" data-target="89">0</div>
+                <div class="text-xs text-zinc-500 mt-2 uppercase tracking-wider">регионов РФ</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Professional Profile -->
+<section id="profile" class="py-24">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="animate-on-scroll">
+            <div class="section-divider mb-6"></div>
+            <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-4">Профессиональный<br>профиль</h2>
+            <p class="text-zinc-400 text-base md:text-lg leading-relaxed max-w-4xl mt-8">
+                Руководитель судебно-претензионного и регуляторного направления с более чем <span class="text-orange-400 font-medium">20-летним юридическим стажем</span>, из них свыше 13 лет — в ведущих букмекерских компаниях федерального уровня (<span class="text-zinc-200 font-medium">«Лига Ставок», БК «BETCITY»</span>), работающих в условиях постоянно ужесточающегося регулирования и высокого внимания правоохранительных и лицензирующих органов.
+            </p>
+            <p class="text-zinc-400 text-base md:text-lg leading-relaxed max-w-4xl mt-6">
+                Формирую и защищаю правовую позицию легального букмекера в судах всех инстанций, при проверках, в диалоге с регуляторами и правоохранительными органами, обеспечивая <span class="text-zinc-200 font-medium">непрерывность операционной деятельности</span> и снижение финансовых, регуляторных и репутационных рисков.
+            </p>
+            <p class="text-zinc-400 text-base md:text-lg leading-relaxed max-w-4xl mt-6">
+                Имею <span class="text-orange-400 font-medium">уникальный для рынка опыт</span> взыскания убытков с Российской Федерации и успешного оспаривания актов и действий правоохранительных органов и контролеров в интересах легального букмекера, что формирует позитивную судебную практику не только для компании, но и для отрасли в целом.
+            </p>
+            <div class="mt-8 max-w-4xl">
+                <p class="text-sm font-semibold text-zinc-200 mb-3">Ключевая специализация:</p>
+                <ul class="space-y-2">
+                    <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                        <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                        Судебные споры, вытекающие из приёма ставок и выплаты выигрышей.
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                        <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                        Сопровождение проверок и оспаривание актов государственных органов.
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                        <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                        Обеспечение соответствия деятельности лицензионным и иным обязательным требованиям.
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                        <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                        Разработка и внедрение внутренних правил, регламентов и маркетинговых условий, безопасных для букмекерского бизнеса.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Expertise Tabs -->
+<section id="expertise" class="py-24 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="animate-on-scroll">
+            <div class="section-divider mb-6"></div>
+            <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-4">Отраслевая<br>экспертиза</h2>
+            <p class="text-zinc-400 text-sm mt-2 mb-10">Букмекерский бизнес — полный цикл правового сопровождения</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex gap-2 mb-10 overflow-x-auto pb-2 no-print animate-on-scroll" style="transition-delay: 0.1s;">
+            <button class="tab-btn active" onclick="switchTab('litigation', this)">Судебные споры</button>
+            <button class="tab-btn" onclick="switchTab('compliance', this)">Комплаенс</button>
+            <button class="tab-btn" onclick="switchTab('checks', this)">Проверки</button>
+            <button class="tab-btn" onclick="switchTab('documents', this)">Документы</button>
+            <button class="tab-btn" onclick="switchTab('communications', this)">Коммуникации</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="tab-litigation" class="tab-content">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card rounded-2xl p-6 animate-on-scroll">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:gavel" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Ставки и выигрыши</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Судебные споры, связанные с приёмом ставок, выплатой выигрышей, блокировкой счетов, отказом в выплате, интерпретацией правил букмекера и маркетинговых условий.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 animate-on-scroll" style="transition-delay: 0.1s;">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:scale" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Все инстанции</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Арбитражные суды, суды общей юрисдикции, мировые судьи, Верховный Суд РФ — полное представительство на всех уровнях судебной системы.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 animate-on-scroll" style="transition-delay: 0.2s;">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:shield-check" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Оспаривание актов</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Оспаривание ненормативных актов, решений и действий государственных органов, затрагивающих лицензию, операционную деятельность и репутацию компании.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 animate-on-scroll" style="transition-delay: 0.3s;">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:file-check" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Административные дела</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Дела об административных правонарушениях по рекламе, лицензионным условиям, правилам организации азартных игр — вплоть до Верховного Суда РФ.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-compliance" class="tab-content hidden">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:badge-check" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Лицензионные требования</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Экспертиза соответствия обособленных подразделений (ППС и иных объектов) лицензионным требованиям, подготовка предложений по устранению нарушений и рисков.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:shield-alert" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">115-ФЗ (ПОД/ФТ)</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Соблюдение требований противодействия отмыванию доходов и финансированию терроризма в контексте букмекерской деятельности.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:megaphone" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Реклама и маркетинг</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Правовая экспертиза рекламных компаний, акций, бонусных программ и стимуляционных мероприятий с учётом законодательства о рекламе и защите прав потребителей.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:user-check" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Защита прав потребителей</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Минимизация рисков претензий со стороны потребителей при разработке и изменении условий обслуживания, бонусных программ и правил букмекера.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-checks" class="tab-content hidden">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:search" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Плановые и внеплановые</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Сопровождение проверок лицензирующего органа, Единого регулятора азартных игр, правоохранительных и иных контролирующих органов по всей территории РФ.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:map" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Полевые проверки</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Систематические выезды в командировки для участия в проверках ППС и обособленных подразделений с участием полиции, прокуратуры и контролирующих органов.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:file-text" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Процессуальные действия</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Личное участие в даче объяснений, сопровождение осмотров и иных процессуальных действий, предотвращение блокирующих последствий для бизнеса.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:building" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Процессинговые центры</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Участие в проверках процессингового центра, полном правовом сопровождении онлайн- и офлайн-инфраструктуры букмекерской компании.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-documents" class="tab-content hidden">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:file-plus" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Правила и регламенты</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Разработка и актуализация правил приёма ставок и выплаты выигрышей, клиентских соглашений, внутренних регламентов и инструкций для подразделений.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:book-open" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Локальные НПА</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Разработка и корректировка локальных нормативных актов, обеспечивающих единообразие правоприменения во всех регионах присутствия компании.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:pen-tool" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Правовые заключения</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Подготовка правовых заключений по ключевым направлениям: лицензирование, налогообложение, персональные данные, трудовые отношения, аренда.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:bar-chart-3" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Аналитические обзоры</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Мониторинг законодательства и судебной практики, подготовка обзоров и рекомендаций для руководства и смежных подразделений.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-communications" class="tab-content hidden">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:landmark" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Госорганы</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Официальная переписка с органами государственной власти, Единым регулятором азартных игр, Единым центром учёта перевода ставок.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:users" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Регуляторы и СРО</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Выстраивание системной деловой коммуникации с регуляторами, финансовыми управляющими, судами и СРО, включая сложные и конфликтные кейсы.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:handshake" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Партнёры</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Сопровождение сложных запросов и ситуаций с крупными партнёрами, контрагентами, финансовыми управляющими в том числе конфликтных.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                        <span class="iconify text-orange-400" data-icon="lucide:mail-check" data-width="20"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold tracking-tight mb-3">Запросы</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Подготовка мотивированных ответов на запросы правоохранительных и контролирующих органов, судов, ЕРАИ, ЕЦУПС и иных адресатов.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Key Cases -->
+<section id="cases" class="py-24 border-t border-white/5" style="background: radial-gradient(ellipse at 50% 50%, rgba(249,115,22,0.03) 0%, transparent 60%);">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="animate-on-scroll">
+            <div class="section-divider mb-6"></div>
+            <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-4">Эксклюзивные<br>кейсы</h2>
+            <p class="text-zinc-400 text-sm mt-2 mb-12">Показательные дела, сформировавшие практику для отрасли</p>
+        </div>
+
+        <div class="space-y-6">
+            <!-- Case 1 -->
+            <div class="case-card glass-card rounded-2xl p-8 animate-on-scroll from-left">
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                    <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center">
+                        <span class="iconify text-orange-400" data-icon="lucide:landmark" data-width="28"></span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="px-2.5 py-1 rounded-full bg-orange-500/10 text-orange-400 text-[10px] font-bold uppercase tracking-wider">Прецедент</span>
+                            <span class="text-xs text-zinc-500">Верховный суд РБ, № 22-7821/2016</span>
+                        </div>
+                        <h3 class="text-xl font-semibold tracking-tight mb-3">Взыскание убытков с Российской Федерации</h3>
+                        <p class="text-sm text-zinc-400 leading-relaxed">Участие в деле, завершившемся взысканием с РФ убытков, причинённых незаконными действиями правоохранительных органов при проверке обособленных подразделений букмекерской компании. Для отрасли это <span class="text-orange-400 font-medium">редкий кейс</span>, демонстрирующий возможность эффективной защиты интересов легального букмекера даже против государства.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case 2 -->
+            <div class="case-card glass-card rounded-2xl p-8 animate-on-scroll from-right">
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                    <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center">
+                        <span class="iconify text-orange-400" data-icon="lucide:scale" data-width="28"></span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-wider">Верховный Суд РФ</span>
+                            <span class="text-xs text-zinc-500">Постановление ВС РФ от 18.08.2017 № 41-АД17-22</span>
+                        </div>
+                        <h3 class="text-xl font-semibold tracking-tight mb-3">Формирование практики в Верховном Суде РФ</h3>
+                        <p class="text-sm text-zinc-400 leading-relaxed">Успешное обжалование постановлений по делам об административных правонарушениях с выходом на Верховный Суд РФ, что способствовало формированию <span class="text-emerald-400 font-medium">благоприятной для организаторов азартных игр практики</span> и снижению рисков для компании и игроков.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case 3 -->
+            <div class="case-card glass-card rounded-2xl p-8 animate-on-scroll from-left">
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                    <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center">
+                        <span class="iconify text-orange-400" data-icon="lucide:briefcase" data-width="28"></span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="px-2.5 py-1 rounded-full bg-orange-500/10 text-orange-400 text-[10px] font-bold uppercase tracking-wider">Арбитраж</span>
+                            <span class="text-xs text-zinc-500">АС г. Москвы: А40-91482/2018, А40-207926/2018, А40-145185/2016, А40-2821/2013 и др.</span>
+                        </div>
+                        <h3 class="text-xl font-semibold tracking-tight mb-3">Резонансные арбитражные споры</h3>
+                        <p class="text-sm text-zinc-400 leading-relaxed">Участие в делах Арбитражного суда г. Москвы по ключевым спорам букмекерской компании с контрагентами и клиентами, где отстаивалась <span class="text-zinc-200 font-medium">законность схем работы, добросовестность компании</span> и корректность применения правил приёма ставок.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case 4 -->
+            <div class="case-card glass-card rounded-2xl p-8 animate-on-scroll from-right">
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                    <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center">
+                        <span class="iconify text-orange-400" data-icon="lucide:map-pin" data-width="28"></span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="px-2.5 py-1 rounded-full bg-orange-500/10 text-orange-400 text-[10px] font-bold uppercase tracking-wider">Полевая работа</span>
+                            <span class="text-xs text-zinc-500">Все регионы РФ</span>
+                        </div>
+                        <h3 class="text-xl font-semibold tracking-tight mb-3">Полевые проверки по всей России</h3>
+                        <p class="text-sm text-zinc-400 leading-relaxed">Систематические выезды в командировки для участия в проверках ППС и обособленных подразделений с участием полиции, прокуратуры, лицензирующих и контролирующих органов. <span class="text-zinc-200 font-medium">Личное участие</span> в даче объяснений, сопровождение осмотров и предотвращение блокирующих последствий для бизнеса.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience -->
+<section id="experience" class="py-24 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="animate-on-scroll">
+            <div class="section-divider mb-6"></div>
+            <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-4">Опыт<br>работы</h2>
+        </div>
+
+        <div class="mt-16 relative">
+            <div class="timeline-line"></div>
+
+            <!-- Job 1 -->
+            <div class="relative pl-16 pb-16 animate-on-scroll">
+                <div class="timeline-dot"></div>
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+                        <div>
+                            <h3 class="text-xl font-semibold tracking-tight">ООО «Фортуна» (БК «BETCITY»)</h3>
+                            <p class="text-orange-400 font-medium text-sm mt-1">Главный юрисконсульт</p>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex-shrink-0">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <span class="text-xs font-medium text-emerald-400">март 2021 — н.в.</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-zinc-500 mb-6">Федеральная букмекерская компания, игорный бизнес, центры развлечений.</p>
+
+                    <div class="expand-toggle flex items-center gap-2 text-sm text-zinc-400 hover:text-orange-400" onclick="toggleExpand('job1')">
+                        <span class="iconify expand-icon" data-icon="lucide:chevron-down" data-width="16" id="icon-job1"></span>
+                        <span id="label-job1">Показать детали</span>
+                    </div>
+                    <div class="expandable-content mt-4" id="job1">
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Руководство и личное участие в претензионно-исковой работе: претензии клиентов по ставкам/выигрышам, вопросы блокировки счетов, претензии контрагентов и запросы правоохранительных органов.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Представительство компании в судах всех инстанций и УФАС в Москве и регионах РФ по спорам, вытекающим из деятельности БК.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Оспаривание ненормативных правовых актов, решений и действий государственных органов, создающих риски для лицензии и репутации.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Сопровождение плановых, внеплановых и профилактических проверок контролирующих органов.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Подготовка мотивированных юридических ответов на запросы правоохранительных и контролирующих органов, финансовых управляющих, судов, ЕРАИ и ЕЦУПС.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Официальная переписка с органами власти, ЕРАИ, ЕЦУПС и ключевыми партнёрами по сложным и конфликтным вопросам.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Правовая экспертиза новых продуктов и изменений в сервисе, клиентских соглашений, правил приёма ставок.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Анализ маркетинговых и стимулирующих акций (бонусы, фрибеты, розыгрыши, кэшбэк) на соответствие законодательству.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Управление работой юрисконсультов: постановка задач, контроль подготовки документов, формирование единых подходов к ведению дел.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Мониторинг законодательства и судебной практики, подготовка аналитических обзоров для руководства и смежных подразделений.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="relative pl-16 pb-16 animate-on-scroll">
+                <div class="timeline-dot inactive"></div>
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+                        <div>
+                            <h3 class="text-xl font-semibold tracking-tight">«Лига Ставок» (ПМБК)</h3>
+                            <p class="text-orange-400 font-medium text-sm mt-1">Руководитель судебной группы юридического департамента</p>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-800 border border-zinc-700 flex-shrink-0">
+                            <span class="text-xs font-medium text-zinc-400">июнь 2012 — февраль 2021</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-zinc-500 mb-6">Одна из крупнейших букмекерских компаний России. ~9 лет.</p>
+
+                    <div class="expand-toggle flex items-center gap-2 text-sm text-zinc-400 hover:text-orange-400" onclick="toggleExpand('job2')">
+                        <span class="iconify expand-icon" data-icon="lucide:chevron-down" data-width="16" id="icon-job2"></span>
+                        <span id="label-job2">Показать детали</span>
+                    </div>
+                    <div class="expandable-content mt-4" id="job2">
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Руководил судебной группой, отвечающей за весь пул судебных споров, связанных с букмекерской деятельностью, на федеральном уровне.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Комплексно сопровождал судебные процессы в порядке ст. 125 УПК РФ по жалобам на действия правоохранительных органов при проверках обособленных подразделений.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Участие в проверках ППС и иных объектов с сотрудниками полиции, прокуратуры и иных органов.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Ведение дел об административных правонарушениях, включая подготовку жалоб вплоть до Верховного Суда РФ.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Гражданско-правовые споры (арбитраж, СОЮ, мировые судьи): претензии клиентов и контрагентов, трудовые споры, аренда, IT-сопровождение, защита чести и достоинства.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Формирование стратегии судебной защиты: анализ рисков, экономическая обоснованность споров, переговоры о досудебном урегулировании.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Подготовка правовых заключений по лицензированию, налогообложению, персональным данным, трудовым отношениям, защите прав потребителей и рекламной деятельности.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Разработка и актуализация регламентов и локальных нормативных актов, обеспечивающих единообразие правоприменения во всех регионах.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 flex-shrink-0"></span>
+                                Организация обработки запросов контролирующих органов с учётом правовых и бизнес-рисков.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="relative pl-16 pb-4 animate-on-scroll">
+                <div class="timeline-dot inactive"></div>
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+                        <div>
+                            <h3 class="text-xl font-semibold tracking-tight">Предыдущий опыт</h3>
+                            <p class="text-zinc-500 text-sm mt-1">Юридические компании · Частная практика</p>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-800 border border-zinc-700 flex-shrink-0">
+                            <span class="text-xs font-medium text-zinc-400">до 2012</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                            <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 mt-2 flex-shrink-0"></span>
+                            Юрист в юридических компаниях и частная практика: претензионно-исковая работа, взыскание задолженности, исполнительное производство, споры с госорганами.
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                            <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 mt-2 flex-shrink-0"></span>
+                            Начальник отдела дополнительных юридических услуг в юридическом центре: координация отдела, взаимодействие с налоговыми органами и банками, сопровождение изменений в корпоративной структуре.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Education -->
+<section id="education" class="py-24 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="animate-on-scroll">
+            <div class="section-divider mb-6"></div>
+            <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-12">Образование</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="glass-card rounded-2xl p-8 animate-on-scroll from-left">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center">
+                        <span class="iconify text-orange-400" data-icon="lucide:graduation-cap" data-width="28"></span>
+                    </div>
+                    <div>
+                        <div class="text-[10px] font-bold uppercase tracking-wider text-orange-400 mb-1">Высшее · 2006</div>
+                        <h3 class="text-lg font-semibold tracking-tight">РГСУ, Москва</h3>
+                    </div>
+                </div>
+                <p class="text-sm text-zinc-400 leading-relaxed mb-3">Юридический факультет, квалификация «Юрист». Высокий средний балл.</p>
+                <p class="text-xs text-zinc-600">Российский государственный социальный университет</p>
+            </div>
+
+            <div class="glass-card rounded-2xl p-8 animate-on-scroll from-right">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center">
+                        <span class="iconify text-orange-400" data-icon="lucide:award" data-width="28"></span>
+                    </div>
+                    <div>
+                        <div class="text-[10px] font-bold uppercase tracking-wider text-orange-400 mb-1">Среднее профессиональное · 1999</div>
+                        <h3 class="text-lg font-semibold tracking-tight">МКИП, Москва</h3>
+                    </div>
+                </div>
+                <p class="text-sm text-zinc-400 leading-relaxed mb-3">Юридический факультет, красный диплом.</p>
+                <p class="text-xs text-zinc-600">Московский колледж информатики и права</p>
+            </div>
+        </div>
+
+        <!-- Additional education -->
+        <div class="mt-8 grid md:grid-cols-2 gap-6">
+            <div class="glass-card rounded-2xl p-6 animate-on-scroll" style="transition-delay: 0.1s;">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="iconify text-zinc-500" data-icon="lucide:book-marked" data-width="18"></span>
+                    <span class="text-sm font-medium">115-ФЗ (ПОД/ФТ)</span>
+                </div>
+                <p class="text-xs text-zinc-500">АНО «Институт дополнительного профессионального образования «МФЦ», 2016 г.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-6 animate-on-scroll" style="transition-delay: 0.2s;">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="iconify text-zinc-500" data-icon="lucide:keyboard" data-width="18"></span>
+                    <span class="text-sm font-medium">Машинопись (слепой метод)</span>
+                </div>
+                <p class="text-xs text-zinc-500">МКИП, 1999 г.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="py-24 border-t border-white/5" style="background: radial-gradient(ellipse at 80% 80%, rgba(249,115,22,0.03) 0%, transparent 50%);">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="animate-on-scroll">
+            <div class="section-divider mb-6"></div>
+            <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-12">Навыки</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-x-12 gap-y-8">
+            <div class="animate-on-scroll">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-sm font-medium">Судебная защита (все инстанции)</span>
+                    <span class="text-xs text-orange-400 font-semibold">98%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" data-width="98"></div></div>
+            </div>
+            <div class="animate-on-scroll" style="transition-delay: 0.05s;">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-sm font-medium">Претензионно-исковая работа</span>
+                    <span class="text-xs text-orange-400 font-semibold">97%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" data-width="97"></div></div>
+            </div>
+            <div class="animate-on-scroll" style="transition-delay: 0.1s;">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-sm font-medium">Сопровождение проверок</span>
+                    <span class="text-xs text-orange-400 font-semibold">95%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+            </div>
+            <div class="animate-on-scroll" style="transition-delay: 0.15s;">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-sm font-medium">Регуляторика и комплаенс</span>
+                    <span class="text-xs text-orange-400 font-semibold">94%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" data-width="94"></div></div>
+            </div>
+            <div class="animate-on-scroll" style="transition-delay: 0.2s;">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-sm font-medium">Разработка НПА и регламентов</span>
+                    <span class="text-xs text-orange-400 font-semibold">92%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+            </div>
+            <div class="animate-on-scroll" style="transition-delay: 0.25s;">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-sm font-medium">Аналитика и правовые заключения</span>
+                    <span class="text-xs text-orange-400 font-semibold">93%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" data-width="93"></div></div>
+            </div>
+            <div class="animate-on-scroll" style="transition-delay: 0.3s;">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-sm font-medium">Деловая коммуникация с госорганами</span>
+                    <span class="text-xs text-orange-400 font-semibold">96%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" data-width="96"></div></div>
+            </div>
+            <div class="animate-on-scroll" style="transition-delay: 0.35s;">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-sm font-medium">Быстрый набор текста (слепой метод)</span>
+                    <span class="text-xs text-orange-400 font-semibold">90%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+            </div>
+            <div class="animate-on-scroll" style="transition-delay: 0.4s;">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-sm font-medium">Исполнительное производство (под ключ)</span>
+                    <span class="text-xs text-orange-400 font-semibold">91%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" data-width="91"></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Personal Qualities & References -->
+<section class="py-24 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="animate-on-scroll">
+            <div class="section-divider mb-6"></div>
+            <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-12">Личные качества<br>и рекомендации</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Qualities -->
+            <div class="animate-on-scroll from-left">
+                <div class="glass-card rounded-2xl p-8 h-full">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-6">
+                        <span class="iconify text-orange-400" data-icon="lucide:user-check" data-width="20"></span>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                            <span class="iconify text-orange-500 mt-0.5 flex-shrink-0" data-icon="lucide:check-circle-2" data-width="16"></span>
+                            Организаторские навыки, умение выстраивать юридическую функцию как сервис для бизнеса
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                            <span class="iconify text-orange-500 mt-0.5 flex-shrink-0" data-icon="lucide:check-circle-2" data-width="16"></span>
+                            Устойчивость к стрессу и способность работать с большим объёмом информации
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                            <span class="iconify text-orange-500 mt-0.5 flex-shrink-0" data-icon="lucide:check-circle-2" data-width="16"></span>
+                            Параллельное ведение множества судебных и регуляторных кейсов
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                            <span class="iconify text-orange-500 mt-0.5 flex-shrink-0" data-icon="lucide:check-circle-2" data-width="16"></span>
+                            Приоритет интересов компании, готовность не только реагировать на риски, но и предотвращать их
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-zinc-400 leading-relaxed">
+                            <span class="iconify text-orange-500 mt-0.5 flex-shrink-0" data-icon="lucide:check-circle-2" data-width="16"></span>
+                            Грамотная настройка процессов и документов для минимизации рисков
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- References -->
+            <div class="animate-on-scroll from-right">
+                <div class="glass-card rounded-2xl p-8 h-full">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-6">
+                        <span class="iconify text-orange-400" data-icon="lucide:users" data-width="20"></span>
+                    </div>
+                    <p class="text-xs text-zinc-500 uppercase tracking-wider font-medium mb-6">Рекомендации предоставляются по запросу</p>
+
+                    <div class="space-y-6">
+                        <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white text-xs font-bold">ГС</div>
+                                <div>
+                                    <p class="text-sm font-medium">Горбунова Светлана Михайловна</p>
+                                    <p class="text-xs text-zinc-500">CLO, зам. генерального директора по правовым вопросам</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-orange-400 mt-2">ООО «ПМБК» («Лига Ставок»)</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white text-xs font-bold">ВА</div>
+                                <div>
+                                    <p class="text-sm font-medium">Ворошилина Анна Александровна</p>
+                                    <p class="text-xs text-zinc-500">Директор юридического департамента</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-orange-400 mt-2">ООО «Фортуна» (БК «BETCITY»)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer CTA -->
+<section class="py-24 border-t border-white/5" style="background: radial-gradient(ellipse at 50% 100%, rgba(249,115,22,0.06) 0%, transparent 60%);">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+        <div class="animate-on-scroll">
+            <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-6">Готов к обсуждению</h2>
+            <p class="text-zinc-400 text-base max-w-md mx-auto mb-10">Открыт к предложениям в сфере правового сопровождения букмекерского бизнеса</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="tel:+79257730349" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-zinc-100 text-zinc-900 font-semibold text-sm hover:scale-105 active:scale-95 transition-transform" style="box-shadow: 0 10px 15px -3px rgba(255,255,255,0.05);">
+                    <span class="iconify" data-icon="lucide:phone" data-width="16"></span>
+                    Позвонить
+                </a>
+                <a href="mailto:ruslan-ul@yandex.ru" class="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/10 text-zinc-300 font-semibold text-sm hover:border-orange-500/30 hover:text-orange-400 transition-all">
+                    <span class="iconify" data-icon="lucide:mail" data-width="16"></span>
+                    Написать
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-8 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-zinc-600">© 2025 Кудряков Руслан Абдуллаевич</p>
+        <p class="text-xs text-zinc-600">Главный юрист · Букмекерский бизнес</p>
+    </div>
+</footer>
+
+<!-- Toast -->
+<div id="toast" class="toast">
+    <span id="toast-text"></span>
+</div>
+
+<script>
+const PAGE_PASSWORD = '3232';
+
+function unlockPage() {
+    const lock = document.getElementById('siteLock');
+    document.body.classList.remove('auth-locked');
+    if (lock) lock.classList.add('hidden');
+}
+
+function checkPagePassword() {
+    const input = document.getElementById('sitePasswordInput');
+    const error = document.getElementById('siteLockError');
+    if (!input || !error) return;
+
+    if (input.value.trim() === PAGE_PASSWORD) {
+        error.textContent = '';
+        unlockPage();
+        return;
+    }
+    error.textContent = 'Неверный пароль';
+    input.value = '';
+    input.focus();
+}
+
+const passwordBtn = document.getElementById('sitePasswordBtn');
+const passwordInput = document.getElementById('sitePasswordInput');
+if (passwordBtn) passwordBtn.addEventListener('click', checkPagePassword);
+if (passwordInput) {
+    passwordInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') checkPagePassword();
+    });
+    passwordInput.focus();
+}
+
+// Scroll animations
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+
+            // Animate skill bars
+            const skillFills = entry.target.querySelectorAll('.skill-fill');
+            skillFills.forEach(fill => {
+                const width = fill.getAttribute('data-width');
+                setTimeout(() => { fill.style.width = width + '%'; }, 300);
+            });
+
+            // Animate stat numbers
+            if (entry.target.querySelector('.stat-number')) {
+                const num = entry.target.querySelector('.stat-number');
+                animateNumber(num, parseInt(num.getAttribute('data-target')));
+            }
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+// Number animation
+function animateNumber(el, target) {
+    let current = 0;
+    const increment = target / 40;
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        el.textContent = Math.floor(current) + '+';
+    }, 40);
+}
+
+// Smooth scroll
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Tab switching
+function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.remove('hidden');
+    btn.classList.add('active');
+}
+
+// Expand/collapse
+function toggleExpand(id) {
+    const content = document.getElementById(id);
+    const icon = document.getElementById('icon-' + id);
+    const label = document.getElementById('label-' + id);
+    content.classList.toggle('open');
+    icon.classList.toggle('rotated');
+    label.textContent = content.classList.contains('open') ? 'Скрыть детали' : 'Показать детали';
+}
+
+// Copy to clipboard
+function copyToClipboard(text, message) {
+    navigator.clipboard.writeText(text).then(() => {
+        showToast(message);
+    }).catch(() => {
+        showToast(message);
+    });
+}
+
+// Toast
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    const toastText = document.getElementById('toast-text');
+    toastText.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// Mobile menu
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('hidden');
+}
+
+// PDF download
+function handlePrint() {
+    const link = document.createElement('a');
+    link.href = './Резюме.pdf';
+    link.download = 'Резюме.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+}
+
+// Active nav link on scroll
+const sections = ['profile', 'expertise', 'cases', 'experience', 'education', 'skills'];
+window.addEventListener('scroll', () => {
+    const scrollPos = window.scrollY + 100;
+    sections.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) {
+            const top = section.offsetTop;
+            const bottom = top + section.offsetHeight;
+            const link = document.querySelector(`.nav-link[onclick*="${id}"]`);
+            if (link) {
+                if (scrollPos >= top && scrollPos < bottom) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            }
+        }
+    });
+});
+</script>
+
+</body>
+</html>
