@@ -104,6 +104,21 @@
                         radial-gradient(ellipse at 80% 50%, rgba(249,115,22,0.04) 0%, transparent 50%),
                         #09090b;
         }
+        .hero-image-frame {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 28px 54px -18px rgba(0,0,0,0.65);
+            margin-bottom: 34px;
+        }
+        .hero-image-frame img {
+            width: 100%;
+            height: clamp(180px, 32vw, 340px);
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
 
         /* Glass card */
         .glass-card {
@@ -446,6 +461,13 @@
                 font-size: 2.15rem !important;
                 line-height: 1.15 !important;
             }
+            .hero-image-frame {
+                margin-bottom: 22px;
+                border-radius: 14px;
+            }
+            .hero-image-frame img {
+                height: 170px;
+            }
             .glass-card {
                 padding: 20px !important;
             }
@@ -578,6 +600,9 @@
 <!-- Hero Section -->
 <section class="hero-bg min-h-screen flex items-center pt-16">
     <div class="max-w-6xl mx-auto px-6 py-20 w-full">
+        <div class="hero-image-frame no-print">
+            <img src="./assets/hero-header-generated.png" alt="Профессиональный фон">
+        </div>
         <div class="flex justify-center">
             <div class="text-center md:text-left max-w-3xl" style="animation: fadeInRight 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s forwards; opacity: 0;">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 mb-6">
